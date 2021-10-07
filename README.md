@@ -1,5 +1,6 @@
 # jQuery Apprise_V3
 jQuery Apprise V3 is the mobile supported version of Apprise V1.5.
+Also, the code size is smaller and more efficient than V1.5.
 
 If you're already using V1.5, no code changes are needed. 
 Just replace your Apprise V1.5 to V3.
