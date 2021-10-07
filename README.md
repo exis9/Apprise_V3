@@ -10,7 +10,7 @@ Just replace your Apprise V1.5 to V3.
 Apprise Requires jQuery.
 
 ```js
-<link rel="stylesheet" href="apprise/apprise.css">
+<link rel="stylesheet" href="apprise/apprise.min.css">
 <script src="apprise/apprise.min.js">
 ```
 The most basic sample:
