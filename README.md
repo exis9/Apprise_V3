@@ -17,3 +17,9 @@ $(function() {
   apprise('hi there')
 })
 ```
+
+For more documentation, please see the [documentation](https://exis9.github.io/Apprise_V3/apprise/sample.html) page.
+
+# DEMO
+
+[See DEMO](https://exis9.github.io/Apprise_V3/apprise/sample.html)
