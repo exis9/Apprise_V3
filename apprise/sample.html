@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Sample</title>
+		<style>
+			* {
+				margin: 0;padding:0;
+				box-sizing: border-box;	
+			}
+			body {
+				padding: 20px;
+			}
+			code {
+				max-width: 600px;
+				display:table;
+				margin: 8px;
+				white-space: pre;
+				border: 2px solid #777;
+			}
+			hr {
+				max-width: 800px;
+				border: 1px solid rgb(216, 216, 216);
+				margin: 20px 2px;
+			}
+		</style>
+	</head>
+
+    <body>
+		<h1>Apprise V3</h1>
+		<br>
+		This is the Apprise V1.5 improved version. (Responsible/Mobile Support)<br><br>
+
+		The Full Default Arguments List<br>
+		<code class="code">
+apprise('hi there', {
+	'confirm': false,
+	'verify': false,
+	'password': false,
+	'input': false,
+	'animate': false,
+	'textOk': 'Ok',
+	'textCancel': 'Cancel',
+	'textYes': 'Yes',
+	'textNo': 'No'
+}, callback, isReturnKeyClosingEnable )
+		</code>
+		<hr>
+        <button id="b1">Basic sample</button>
+		<code class="code">
+apprise('hi there')
+		</code>
+		<hr>
+
+		<button id="b1-1">HTML sample</button>
+		<code class="code">
+apprise('HTML Tags are available! &lt;br&gt; &lt;b style="color:blue"&gt;Pikachu!!&lt;/b&gt;')
+		</code>
+		<hr>
+
+		<button id="b2">Animation sample</button>
+		<code class="code">
+apprise('I am moving!', {'animate': true, 'textOk': 'Okkkaaaayy!!!'})
+		</code>
+		<hr>
+
+		<button id="b3">Confirm sample</button>
+		<code class="code">
+apprise('confirm!', {
+	'confirm': true,
+}, function(r){
+	if ( r )
+		apprise('Yes!')
+})
+</code>
+<hr>
+
+
+<button id="b4">Yes/No sample</button>
+<code class="code">
+apprise('verify test!', {
+	'verify': true,
+	'textYes': 'Yes',
+	'textNo': 'No'
+}, function(r){
+	if ( r )
+		apprise('Yes!')
+	else
+		apprise('No!')
+})
+</code>
+<hr>
+
+		<button id="b5">Input sample</button>
+		<code class="code">
+apprise('input test!', {
+	'input': true,
+}, function(r){
+	if ( r )
+		apprise(r)
+	else
+		apprise('No Text!')
+})
+		</code>
+		<hr>
+
+
+		
+
+    </body>
+	<link rel="stylesheet" href="apprise.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="apprise.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+	<script>
+		$(function(){
+			document.querySelectorAll('code.code').forEach(el => {
+				// then highlight each
+				hljs.highlightElement(el);
+			});
+			$('#b1').on('click', ()=>{
+				apprise('hi there')
+			})
+			$('#b1-1').on('click', ()=>{
+				apprise('HTML Tags are available! <br> <b style="color:blue">Pikachu!!</b>')
+			})
+			$('#b2').on('click', ()=>{
+				apprise('I am moving!', {'animate': true, 'textOk': 'Okkkaaaayy!!!'})
+			})
+			$('#b3').on('click', ()=>{
+				apprise('confirm!', {
+					'confirm': true
+				}, function(r){
+					if ( r )
+						apprise('Yes!')
+				})
+			})
+			$('#b4').on('click', ()=>{
+				apprise('verify test!', {
+					'verify': true,
+					'textYes': 'Yes',
+					'textNo': 'No'
+				}, function(r){
+					if ( r )
+						apprise('Yes!')
+					else
+						apprise('No!')
+				})
+			})
+
+			$('#b5').on('click', ()=>{
+				apprise('input test!', {
+					'input': true,
+				}, function(r){
+					if ( r )
+						apprise(r)
+					else
+						apprise('No Text!')
+				})
+			})
+			
+		})
+	</script>
+</html>
