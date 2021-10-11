@@ -1,5 +1,6 @@
 var __apr_bkeyd = 1,
-	_g_aprs_ms = 0;
+	_g_aprs_ms = 0,
+	_g_f_tg = 0;
 
 function killApprise(){
 	$('.appriseOverlay').remove()
@@ -13,20 +14,14 @@ function chkAprsTimer() {
 	_g_aprs_ms = Date.now();
 	return 1;
 }
-function resetAppriseTimer() { _g_aprs_ms = 0; }
-function appriseStopKeydown() {
-	__apr_bkeyd = 0;
-}
-
-function appriseStartKeydown() {
-	__apr_bkeyd = 1;
-}
-
-function appriseNoReturnKeyClosing(s, as, c) {
+function resetAppriseTimer(){_g_aprs_ms = 0;}
+function appriseStopKeydown(){__apr_bkeyd = 0;}
+function appriseStartKeydown(){__apr_bkeyd = 1;}
+function appriseNoKeyClose(s, as, c) {
 	apprise(s, as, c, false)
 }
 
-function apprise(str, args, callback, isReturnKeyClosingEnable=true) {
+function apprise(str, args, callback, isKeyCloseEnable=true) {
 	killApprise()
 	if (!chkAprsTimer()) return false;
 	appriseStartKeydown();
@@ -52,11 +47,9 @@ function apprise(str, args, callback, isReturnKeyClosingEnable=true) {
 		if (typeof args[index] == 'undefined')
 			args[index] = default_args[index];
 	}
-	if ( isReturnKeyClosingEnable )
-		isReturnKeyClosingEnable = args['keyClose']
-		
-
-	let aHeight = $(document).height(), aWidth = $(document).width();
+	if ( isKeyCloseEnable )
+		isKeyCloseEnable = args['keyClose']
+	
 	$('body').append('<div class="appriseOverlay" id="aOverlay"></div>');
 	
 	if ( args['backgroundClose'] )
@@ -68,8 +61,8 @@ function apprise(str, args, callback, isReturnKeyClosingEnable=true) {
 			});
 		});
 	}
-	$('.appriseOverlay').css('height', aHeight).fadeIn(100);
-	$('body').append('<div class="appriseOuter"><div class="appriseInner">'+str+'</div><div class="aButtons"></div></div>');
+	$('.appriseOverlay').fadeIn(100);
+	$('body').append('<div class="appriseOuter" tabindex="0"><div class="appriseInner">'+str+'</div><div class="aButtons"></div></div>');
 	
 	// animate
 	if (args['animate']){
@@ -83,14 +76,16 @@ function apprise(str, args, callback, isReturnKeyClosingEnable=true) {
 	} else {
 		$('.appriseOuter').fadeIn(200)
 	}
-
+	_g_f_tg = 0
+	
 	// input or password
 	let ptxt = '';
 	if (args['input']) {
 		if (typeof (args['input']) == 'string')
 			ptxt = args['input'];
 		$('.appriseInner').append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" value="' + ptxt + '"></div>');
-		$('.aTextbox').trigger('focus');
+		
+		_g_f_tg = 1
 	} else if (args['password']) {
 		if (typeof (args['password']) == 'string')
 			ptxt = args['password'];
@@ -101,9 +96,14 @@ function apprise(str, args, callback, isReturnKeyClosingEnable=true) {
 					args['passHideText']+
 				'</span></label>'+
 			'</div>');
-		$('.aTextbox').trigger('focus');
+		_g_f_tg = 1
 	}
-
+	setTimeout(()=>{
+		if ( _g_f_tg )
+			$('.aTextbox:eq(0)').trigger('focus');
+		else
+			$('.appriseOuter:eq(0)').trigger('focus')
+	},5)
 
 	//$('.appriseInner').append('<div class="aButtons"></div>');
 	
@@ -117,20 +117,32 @@ function apprise(str, args, callback, isReturnKeyClosingEnable=true) {
 		$('.aButtons').append('<button value="ok">' + args['textOk'] + '</button>');
 	}
 
-	$(document).off('keydown');
-	$(document).keydown(function(e){
-		if (!__apr_bkeyd) return;
-		if ($('.appriseOverlay').is(':visible')) {
-			if (e.keyCode == 13 && isReturnKeyClosingEnable !== false) {
-				if (!chkAprsTimer()) return false;
-				$(':focus').trigger('blur');
-				$('.aButtons > button[value="ok"]').trigger('click');
-			}
-			if (e.keyCode == 27) {
-				$('.aButtons > button[value="cancel"]').trigger('click');
+	document.querySelector('.appriseOuter').addEventListener('keyup', e => {
+		e.stopPropagation()
+		if (!__apr_bkeyd) return
+		if ( $('.appriseOverlay').is(':visible') )
+		{
+			if ( isKeyCloseEnable !== false )
+			{
+				let tg = e.target.tagName.toLowerCase()
+				if (e.keyCode == 13 ) {
+					if (!chkAprsTimer()) return false;
+					$(':focus').trigger('blur');
+					$('.aButtons > button[value="ok"]').trigger('click')
+				}
+
+				if (e.keyCode == 27) {
+					if ( tg == 'input' || tg =='textarea' )
+						return
+					if ( $('.aButtons > button[value="cancel"]').length )
+						$('.aButtons > button[value="cancel"]').trigger('click')
+					else
+						$('.aButtons > button[value="ok"]').trigger('click')
+				}
 			}
 		}
-	});
+	})
+	
 	let aText = $('.aTextbox').val();
 	if (!aText)
 		aText = false;
@@ -140,7 +152,7 @@ function apprise(str, args, callback, isReturnKeyClosingEnable=true) {
 		aText = $(this).val();
 	});
 	$('.aButtons > button').on('click', function () {
-		if (isReturnKeyClosingEnable !== false)
+		if (isKeyCloseEnable !== false)
 			killApprise()
 		
 		if (callback) {

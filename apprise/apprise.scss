@@ -1,5 +1,6 @@
 .appriseOverlay {
 	box-sizing: border-box;
+	margin:0;padding:0;
 	z-index: 1000000;
 	position: fixed;
 	top: 0;
@@ -26,6 +27,7 @@
 	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -40%);
+	outline: none;
 }
 
 .appriseInner {

@@ -12,6 +12,8 @@
 }
 h1,h2,h3,h4,h5 {
 	margin-bottom: 1rem;
+	border-left: 6px solid #FF447D;
+	padding: 2px 8px;
 }
 body {
 	padding: 20px;
@@ -42,6 +44,9 @@ hr {
 	max-width: 800px;
 	border: 1px solid rgb(216, 216, 216);
 	margin: 20px 2px;
+}
+button {
+	padding: 2px 8px;
 }
 
 @media all and (max-width:600px) {
@@ -368,8 +373,9 @@ apprise('password test!', {
 		<hr>
 
 		<div>
-		<h5>＜APIs＞</h5>
-		killApprise() ... Close all apprise dialogs
+		<h5>APIs (for advanced users)</h5>
+		killApprise() ... <small>Close all apprise dialogs</small><br>
+		appriseNoKeyClose ... <small>Same to the normal apprise function, but this version won't be closed by return key</small>
 		</div>
 		<hr>
 
