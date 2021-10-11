@@ -16,11 +16,12 @@ Just replace your Apprise V1.5 to V3 and your apprise will work great automatica
 
 # Instalation
 
-Apprise Requires jQuery.
+Apprise Requires jQuery. 
+Just download the zip file and put apprise.min.css and apprise.min.js to your html directory
 
 ```js
-<link rel="stylesheet" href="apprise/apprise.min.css">
-<script src="apprise/apprise.min.js">
+<link rel="stylesheet" href="apprise.min.css">
+<script src="apprise.min.js">
 ```
 The most basic sample:
 
@@ -31,6 +32,14 @@ $(function() {
 ```
 
 For more documentation, please see the [documentation](https://exis9.github.io/Apprise_V3/sample.html) page.
+
+# CDN
+
+```js
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/exis9/Apprise_V3@latest/apprise.min.css">
+<script src="https://cdn.jsdelivr.net/gh/exis9/Apprise_V3@latest/apprise.min.js">
+```
+
 
 # DEMO
 
