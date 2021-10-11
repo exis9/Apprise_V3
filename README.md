@@ -40,7 +40,7 @@ For more documentation, please see the [documentation](https://exis9.github.io/A
 <script src="https://cdn.jsdelivr.net/gh/exis9/Apprise_V3@latest/apprise.min.js">
 ```
 
-# For Vue.js / React / Svelte / Flutter Users
+# To Vue.js / React / Svelte / Flutter Users
 
 I've been developping non jQuery version, too! Please keep following me!
 
