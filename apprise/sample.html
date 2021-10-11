@@ -10,6 +10,9 @@
 	margin: 0;padding:0;
 	box-sizing: border-box;	
 }
+h1,h2,h3,h4,h5 {
+	margin-bottom: 1rem;
+}
 body {
 	padding: 20px;
 	font-family: 'Helvetica Neue', Helvetica, Arial;
@@ -255,8 +258,14 @@ background-color: #FF6600
 			<a href="https://github.com/exis9/Apprise_V3/archive/refs/heads/main.zip" target=_blank>Download ZIP</a>
 		</div>
 
+		<hr>
+		<h1>Installation</h1>
+		<b><a href="https://github.com/exis9/Apprise_V3#instalation" target=_blank>How to install</a></b> 
+		<hr>
+
 		The Full Default Arguments List<br>
 		<code class="code">
+// All apprise default values
 apprise('hi there', {
 	'confirm': false,
 	'verify': false,
@@ -273,6 +282,8 @@ apprise('hi there', {
 }, callback )
 		</code>
 		<hr>
+
+
         <button id="b1">Basic sample</button>
 		<code class="code">
 apprise('hi there')
@@ -357,7 +368,7 @@ apprise('password test!', {
 		<hr>
 
 		<div>
-		<h5>＜APIs＞</h5><br>
+		<h5>＜APIs＞</h5>
 		killApprise() ... Close all apprise dialogs
 		</div>
 		<hr>
