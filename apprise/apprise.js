@@ -1,6 +1,10 @@
 var __apr_bkeyd = 1,
 	_g_aprs_ms = 0;
 
+function killApprise(){
+	$('.appriseOverlay').remove()
+	$('.appriseOuter').remove()
+}
 function chkAprsTimer() {
 	if (!Date.now) Date.now = function now() {
 		return new Date().getTime();
@@ -18,33 +22,15 @@ function appriseStartKeydown() {
 	__apr_bkeyd = 1;
 }
 
-function appriseReposition() {
-	var el = $('.appriseOuter');
-	if (el.length) {
-		var w = $(document).width(),
-			h = $(window).height();
-		if ($(window).width() < 820)
-			$('.appriseOuter').css('top', $(window).height() / 15 + 'px').css('left', $(window).width() / 8 + 'px')
-		else
-			el.css({
-				top: '100px',
-				left: ($(window).width() - $('.appriseOuter').width()) / 2 + $(window).scrollLeft() + 'px'
-			});
-		$('.appriseOverlay').css({
-			width: w + 'px',
-			height: h + 'px'
-		});
-	}
-}
-
 function appriseNoReturnKeyClosing(s, as, c) {
 	apprise(s, as, c, false)
 }
 
-function apprise(string, args, callback, isReturnKeyClosingEnable) {
+function apprise(str, args, callback, isReturnKeyClosingEnable=true) {
+	killApprise()
 	if (!chkAprsTimer()) return false;
 	appriseStartKeydown();
-	var default_args = {
+	let default_args = {
 		'confirm': false,
 		'verify': false,
 		'password': false,
@@ -53,114 +39,112 @@ function apprise(string, args, callback, isReturnKeyClosingEnable) {
 		'textOk': 'Ok',
 		'textCancel': 'Cancel',
 		'textYes': 'Yes',
-		'textNo': 'No'
+		'textNo': 'No',
+		'backgroundClose': true,
+		'keyClose': true,
+		'passHideText': 'hide?',
 	}
-	if (args) {
-		for (var index in default_args) {
-			if (typeof args[index] == 'undefined') args[index] = default_args[index];
-		}
+	if (!args) 
+		args = default_args
+	
+	for (let index in default_args)
+	{
+		if (typeof args[index] == 'undefined')
+			args[index] = default_args[index];
 	}
-	var aHeight = $(document).height();
-	var aWidth = $(document).width();
+	if ( isReturnKeyClosingEnable )
+		isReturnKeyClosingEnable = args['keyClose']
+		
+
+	let aHeight = $(document).height(), aWidth = $(document).width();
 	$('body').append('<div class="appriseOverlay" id="aOverlay"></div>');
-	$(window).resize(function () {
-		appriseReposition();
-	});
-	$('.appriseOverlay').click(function () {
-		$('.appriseOuter').fadeOut(400, function () {
-			$('.appriseOverlay').remove();
-			$('.appriseOuter').remove();
+	
+	if ( args['backgroundClose'] )
+	{
+		$('.appriseOverlay').off()
+		$('.appriseOverlay').on('click', function () {
+			$('.appriseOuter').fadeOut(400, function () {
+				killApprise()
+			});
 		});
-	});
-	$('.appriseOverlay').css('height', aHeight).css('width', aWidth).fadeIn(100);
-	$('body').append('<div class="appriseOuter"></div>');
-	$('.appriseOuter').append('<div class="appriseInner"></div>');
-	$('.appriseInner').append(string);
-	appriseReposition();
-	if (args) {
-		if (args['animate']) {
-			var aniSpeed = args['animate'];
-			if (isNaN(aniSpeed)) {
-				aniSpeed = 400;
-			}
-			var m = 100;
-			if ($(window).width() < 820) m = $(window).height() / 15;
-			$('.appriseOuter').css('top', '-200px').show().animate({
-				top: m + 'px'
-			}, aniSpeed);
-		} else {
-			if ($(window).height() < 400) {
-				$('.appriseOuter').css('top', '10px').fadeIn(200);
-			} else {
-				$('.appriseOuter').css('top', '100px').fadeIn(200);
-			}
-		}
+	}
+	$('.appriseOverlay').css('height', aHeight).fadeIn(100);
+	$('body').append('<div class="appriseOuter"><div class="appriseInner">'+str+'</div><div class="aButtons"></div></div>');
+	
+	// animate
+	if (args['animate']){
+		let aniSpeed = args['animate']
+		if (isNaN(aniSpeed))
+			aniSpeed = 400
+		
+		$('.appriseOuter').css('top', '-200px').show().animate({
+			top: '40%'
+		}, aniSpeed)
 	} else {
-		if ($(window).height() < 400) {
-			$('.appriseOuter').css('top', '10px').fadeIn(200);
-		} else {
-			$('.appriseOuter').css('top', '100px').fadeIn(200);
-		}
+		$('.appriseOuter').fadeIn(200)
 	}
-	if (args) {
-		var ptxt = '';
-		if (args['input']) {
-			if (typeof (args['input']) == 'string')
-				ptxt = args['input'];
-			$('.appriseInner').append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" value="' + ptxt + '"></div>');
-			$('.aTextbox').focus();
-		} else if (args['password']) {
-			if (typeof (args['password']) == 'string')
-				ptxt = args['password'];
-			$('.appriseInner').append(
-				'<div class="aInput" style="white-space:nowrap;"><input id="idApprise_pass" type="text" class="aTextbox" t="aTextbox" value="' + ptxt + '">' +
-				'<label style="margin-left:8px;font-size:13px"><input type="checkbox" onclick="if( $(this).is(\':checked\') ){$(\'#idApprise_pass\').attr(\'type\',\'password\');} else {$(\'#idApprise_pass\').attr(\'type\',\'text\');}" style="margin-right:3px">非表示?</label>'
-				+ '</div>');
-			$('.aTextbox').focus();
-		}
+
+	// input or password
+	let ptxt = '';
+	if (args['input']) {
+		if (typeof (args['input']) == 'string')
+			ptxt = args['input'];
+		$('.appriseInner').append('<div class="aInput"><input type="text" class="aTextbox" t="aTextbox" value="' + ptxt + '"></div>');
+		$('.aTextbox').trigger('focus');
+	} else if (args['password']) {
+		if (typeof (args['password']) == 'string')
+			ptxt = args['password'];
+		$('.appriseInner').append(
+			'<div class="aInput" style="white-space:nowrap;"><input id="idApprise_pass" type="text" class="aTextbox" t="aTextbox" value="' + ptxt + '">' +
+				'<label style="margin-left:8px;font-size:13px;vertical-align:middle;">'+
+					'<input type="checkbox" onclick="if( $(this).is(\':checked\') ){$(\'#idApprise_pass\').attr(\'type\',\'password\');} else {$(\'#idApprise_pass\').attr(\'type\',\'text\');}" style="vertical-align:middle;margin-right:3px"><span style="vertical-align:middle;">'+
+					args['passHideText']+
+				'</span></label>'+
+			'</div>');
+		$('.aTextbox').trigger('focus');
 	}
-	$('.appriseInner').append('<div class="aButtons"></div>');
-	if (args) {
-		if (args['confirm'] || args['input'] || args['password']) {
-			$('.aButtons').append('<button value="ok">' + args['textOk'] + '</button>');
-			$('.aButtons').append('<button value="cancel">' + args['textCancel'] + '</button>');
-		} else if (args['verify']) {
-			$('.aButtons').append('<button value="ok">' + args['textYes'] + '</button>');
-			$('.aButtons').append('<button value="cancel">' + args['textNo'] + '</button>');
-		} else {
-			$('.aButtons').append('<button value="ok">' + args['textOk'] + '</button>');
-		}
+
+
+	//$('.appriseInner').append('<div class="aButtons"></div>');
+	
+	if (args['confirm'] || args['input'] || args['password']) {
+		$('.aButtons').append('<button value="ok">' + args['textOk'] + '</button>');
+		$('.aButtons').append('<button value="cancel">' + args['textCancel'] + '</button>');
+	} else if (args['verify']) {
+		$('.aButtons').append('<button value="ok">' + args['textYes'] + '</button>');
+		$('.aButtons').append('<button value="cancel">' + args['textNo'] + '</button>');
 	} else {
-		$('.aButtons').append('<button value="ok">Ok</button>');
+		$('.aButtons').append('<button value="ok">' + args['textOk'] + '</button>');
 	}
+
 	$(document).off('keydown');
-	$(document).keydown(function (e) {
+	$(document).keydown(function(e){
 		if (!__apr_bkeyd) return;
 		if ($('.appriseOverlay').is(':visible')) {
 			if (e.keyCode == 13 && isReturnKeyClosingEnable !== false) {
 				if (!chkAprsTimer()) return false;
-				$(':focus').blur();
-				$('.aButtons > button[value="ok"]').click();
+				$(':focus').trigger('blur');
+				$('.aButtons > button[value="ok"]').trigger('click');
 			}
 			if (e.keyCode == 27) {
-				$('.aButtons > button[value="cancel"]').click();
+				$('.aButtons > button[value="cancel"]').trigger('click');
 			}
 		}
 	});
-	var aText = $('.aTextbox').val();
-	if (!aText) {
+	let aText = $('.aTextbox').val();
+	if (!aText)
 		aText = false;
-	}
-	$('.aTextbox').keyup(function () {
+	
+	$('.aTextbox').off()
+	$('.aTextbox').on('keyup', function () {
 		aText = $(this).val();
 	});
-	$('.aButtons > button').click(function () {
-		if (isReturnKeyClosingEnable !== false) {
-			$('.appriseOverlay').remove();
-			$('.appriseOuter').remove();
-		}
+	$('.aButtons > button').on('click', function () {
+		if (isReturnKeyClosingEnable !== false)
+			killApprise()
+		
 		if (callback) {
-			var wButton = $(this).attr('value');
+			let wButton = $(this).attr('value');
 			if (wButton == 'ok') {
 				if (args) {
 					if (args['input'] || args['password']) {
