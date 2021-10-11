@@ -1,6 +1,6 @@
 # jQuery Apprise_V3
 
-Apprise_V3 is a very beautiful jQuery modal dialog plugin! [See DEMO](https://exis9.github.io/Apprise_V3/apprise/sample.html)
+Apprise_V3 is a very beautiful jQuery modal dialog plugin! [See DEMO](https://exis9.github.io/Apprise_V3/sample.html)
 
 
 # For Those who already use Apprise V1.5
@@ -30,8 +30,8 @@ $(function() {
 })
 ```
 
-For more documentation, please see the [documentation](https://exis9.github.io/Apprise_V3/apprise/sample.html) page.
+For more documentation, please see the [documentation](https://exis9.github.io/Apprise_V3/sample.html) page.
 
 # DEMO
 
-[See DEMO](https://exis9.github.io/Apprise_V3/apprise/sample.html)
+[See DEMO](https://exis9.github.io/Apprise_V3/sample.html)
