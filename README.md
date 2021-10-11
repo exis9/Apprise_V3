@@ -11,7 +11,7 @@ The code size is smaller(yet more advanced features are available!) and more eff
 
 If you're already using V1.5, no code changes are needed. 
 
-Just replace your Apprise V1.5 to V3 and your apprise will work great on mobile devices, too!
+Just replace your Apprise V1.5 to V3 and your apprise will work great automatically on mobile devices, too!
 
 
 # Instalation
