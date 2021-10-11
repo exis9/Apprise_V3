@@ -7,7 +7,7 @@ Apprise_V3 is a very beautiful jQuery modal dialog plugin! [See DEMO](https://ex
 
 <img width="867" alt="Screen Shot 2021-10-11 at 19 52 37" src="https://user-images.githubusercontent.com/91220554/136864552-c1c162b3-f540-449d-8e7d-82cbdc9f7e48.png">
 
-<img width="499" alt="Screen Shot 2021-10-11 at 19 57 54" src="https://user-images.githubusercontent.com/91220554/136864925-b4754271-0699-430f-94e8-d434a30a7124.png">
+<!--img width="499" alt="Screen Shot 2021-10-11 at 19 57 54" src="https://user-images.githubusercontent.com/91220554/136864925-b4754271-0699-430f-94e8-d434a30a7124.png"-->
 
 
 
