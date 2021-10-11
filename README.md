@@ -14,7 +14,7 @@ If you're already using V1.5, *no code changes are needed*.
 Just replace your Apprise V1.5 to V3 and your apprise will work great automatically on mobile devices, too!
 
 
-# Instalation
+# Installation
 
 Apprise Requires jQuery. 
 Just download the zip file and put apprise.min.css and apprise.min.js to your html directory
