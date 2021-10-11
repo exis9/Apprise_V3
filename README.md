@@ -7,7 +7,7 @@ Apprise_V3 is a very beautiful jQuery modal dialog plugin! [See DEMO](https://ex
 
 jQuery Apprise V3 is the mobile supported version of Apprise V1.5.
 
-Also, the code size is smaller(yet more advanced features are available!) and more efficient than V1.5.
+The code size is smaller(yet more advanced features are available!) and more efficient than V1.5.
 
 If you're already using V1.5, no code changes are needed. 
 
