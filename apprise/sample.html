@@ -248,7 +248,8 @@ background-color: #FF6600
 		<div id="idMain">
 			<h1>Apprise V3</h1>
 		<br>
-		This is the Apprise V1.5 improved version. (Responsible/Mobile Support)
+		This is the Apprise V1.5 improved version. <br>
+		<div style="font-size:12px;color:#666;margin-top:4px">(Responsible/Auto Mobile Support/Smaller/Faster/More Advanced Features)</div>
 		<div style="margin:20px;font-size:15px;font-weight:bold">
 			<a href="https://github.com/exis9/Apprise_V3" target=_blank>Github</a>　
 			<a href="https://github.com/exis9/Apprise_V3/archive/refs/heads/main.zip" target=_blank>Download ZIP</a>
@@ -316,10 +317,11 @@ apprise('verify test!', {
 	'textYes': 'Yes',
 	'textNo': 'No'
 }, function(r){
-	if ( r )
+	if ( r ){
 		apprise('Yes!')
-	else
+	} else {
 		apprise('No!')
+	}
 })
 </code>
 <hr>
@@ -330,10 +332,11 @@ apprise('input test!', {
 	'input': true,
 	'keyClose': false
 }, function(r){
-	if ( r )
+	if ( r ){
 		apprise(r)
-	else
+	} else {
 		apprise('No Text!')
+	}
 })
 		</code>
 		<hr>
@@ -344,17 +347,18 @@ apprise('password test!', {
 	'password': true,
 	'keyClose': false
 }, function(r){
-	if ( r )
+	if ( r ){
 		apprise(r)
-	else
+	} else {
 		apprise('No Text!')
+	}
 })
 		</code>
 		<hr>
 
 		<div>
-		＜APIs＞
-		killApprise(); ... Close all apprise dialogs
+		<h5>＜APIs＞</h5><br>
+		killApprise() ... Close all apprise dialogs
 		</div>
 		<hr>
 
