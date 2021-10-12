@@ -77,10 +77,25 @@
 }
 
 @media all and (max-width: 580px) {
+  .appriseOuter {
+    max-width: 90vw;
+  }
   .appriseInner {
     font-size: 11px;
   }
   .appriseInner button, .aButtons button {
     font-size: 10px;
+  }
+}
+
+@media all and (max-width: 450px) {
+  .appriseOuter {
+    min-width: 60vw;
+  }
+}
+
+@media all and (max-width: 350px) {
+  .appriseOuter {
+    min-width: 85vw;
   }
 }

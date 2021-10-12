@@ -1,19 +1,21 @@
+'use strict';
+
 var __apr_bkeyd = 1,
-	_g_aprs_ms = 0,
+	//_g_aprs_ms = 0,
 	_g_f_tg = 0;
 
 function killApprise(){
 	$('.appriseOverlay').remove()
 	$('.appriseOuter').remove()
 }
-function chkAprsTimer() {
+/*function chkAprsTimer() {
 	if (!Date.now) Date.now = function now() {
 		return new Date().getTime();
 	}
-	if (_g_aprs_ms + 200 > Date.now()) return 0;
+	if (_g_aprs_ms + 800 > Date.now()) return 0;
 	_g_aprs_ms = Date.now();
 	return 1;
-}
+}*/
 function resetAppriseTimer(){_g_aprs_ms = 0;}
 function appriseStopKeydown(){__apr_bkeyd = 0;}
 function appriseStartKeydown(){__apr_bkeyd = 1;}
@@ -23,7 +25,6 @@ function appriseNoKeyClose(s, as, c) {
 
 function apprise(str, args, callback, isKeyCloseEnable=true) {
 	killApprise()
-	if (!chkAprsTimer()) return false;
 	appriseStartKeydown();
 	let default_args = {
 		'confirm': false,
@@ -104,8 +105,6 @@ function apprise(str, args, callback, isKeyCloseEnable=true) {
 		else
 			$('.appriseOuter:eq(0)').trigger('focus')
 	},5)
-
-	//$('.appriseInner').append('<div class="aButtons"></div>');
 	
 	if (args['confirm'] || args['input'] || args['password']) {
 		$('.aButtons').append('<button value="ok">' + args['textOk'] + '</button>');
@@ -126,9 +125,9 @@ function apprise(str, args, callback, isKeyCloseEnable=true) {
 			{
 				let tg = e.target.tagName.toLowerCase()
 				if (e.keyCode == 13 ) {
-					if (!chkAprsTimer()) return false;
 					$(':focus').trigger('blur');
 					$('.aButtons > button[value="ok"]').trigger('click')
+					console.log('eee')
 				}
 
 				if (e.keyCode == 27) {
