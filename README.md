@@ -52,7 +52,7 @@ For more documentation, please see the [documentation](https://exis9.github.io/A
 
 # To Vue.js / React / Svelte / Flutter Users
 
-I've been developping non jQuery version, too! Please keep following me!
+I've been developping the non jQuery version, too! Please keep following me!
 
 
 # DEMO
