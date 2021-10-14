@@ -13,7 +13,7 @@ Apprise_V3 is a very beautiful jQuery modal dialog plugin! [See DEMO](https://ex
 
 
 
-# For Those who already use Apprise V1.5
+# For those who already use Apprise V1.5
 
 jQuery Apprise V3 is the *fully mobile supported version* of Apprise V1.5.
 
