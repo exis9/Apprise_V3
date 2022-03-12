@@ -31,7 +31,7 @@ Just download the zip file and put apprise.min.css and apprise.min.js to your ht
 
 ```js
 <link rel="stylesheet" href="apprise.min.css">
-<script src="apprise.min.js">
+<script src="apprise.min.js"></script>
 ```
 The most basic sample:
 
@@ -47,7 +47,7 @@ For more documentation, please see the [documentation](https://exis9.github.io/A
 
 ```js
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/exis9/Apprise_V3@latest/apprise.min.css">
-<script src="https://cdn.jsdelivr.net/gh/exis9/Apprise_V3@latest/apprise.min.js">
+<script src="https://cdn.jsdelivr.net/gh/exis9/Apprise_V3@latest/apprise.min.js"></script>
 ```
 
 # To Vue.js / React / Svelte / Flutter Users
